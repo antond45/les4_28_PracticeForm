@@ -18,7 +18,7 @@ public class GitHubTest {
     }
 
     @Test
-    void checkForJUnit5InSoftAssertions(){
+    void checkForJUnit5InSoftAssertionsText(){
         // Откройте страницу Selenide в Github
         open("https://github.com/selenide/selenide");
 
