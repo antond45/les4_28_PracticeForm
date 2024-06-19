@@ -2,6 +2,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Selectors.byId;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -26,13 +27,26 @@ public class GitHubTest {
 
         // Убедитесь, что в списке страниц (Pages) есть страница SoftAssertions\
         $(".js-wiki-more-pages-link").click();
-        $(byId("wiki-pages-box")).$(byText("SoftAssertions"));
+        $("#wiki-pages-box").$(byText("SoftAssertions")).click();
+
 
 
 
         // Откройте страницу SoftAssertions
-        $$(".Truncate-text").get(17).click(); //сделал через get элемента посмотреть как работает
+        $("#wiki-pages-box").$(byText("SoftAssertions")).click();
         // Проверьте что внутри есть пример кода для JUnit5
-        $("#wiki-body").shouldHave(text("JUnit5 "));
+        $("#wiki-body").shouldHave(text("""
+                       @ExtendWith({SoftAssertsExtension.class})
+                        class Tests {
+                            @Test
+                            void test() {
+                                Configuration.assertionMode = SOFT;
+                                open("page.html");
+
+                                $("#first").should(visible).click();
+                                $("#second").should(visible).click();
+                            }
+                        }
+                """));
     }
 }
