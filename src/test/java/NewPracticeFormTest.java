@@ -1,61 +1,65 @@
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationForm;
+import utils.FakerUtils;
 
 public class NewPracticeFormTest extends TestBase {
 
     RegistrationForm registrationForm = new RegistrationForm();
 
+    FakerUtils fakerUtils = new FakerUtils();
     @Test
     void positiveAllRegistrationFormTest (){
         registrationForm.openPage()
-                .setFirstName("Anton")
-                .setLastName("Test")
-                .setUserEmail("anton@tests.test")
-                .setGenter("Male")
-                .setUserNumber("7917257895")
-                .setDateOFBirth("1997", "February", "14")
-                .setHobbies("Sports")
-                .setSubjects("English")
-                .setPicture("Screenshot_5.png")
-                .setAddress("1234")
-                .setState("Uttar Pradesh")
-                .setCity("Agra")
+                .setFirstName(fakerUtils.firstName)
+                .setLastName(fakerUtils.lastName)
+                .setUserEmail(fakerUtils.userEmail)
+                .setGenter(fakerUtils.genderUser)
+                .setUserNumber(fakerUtils.userNumber)
+                .setDateOFBirth(fakerUtils.userYaer, fakerUtils.userMounht, fakerUtils.userDay)
+                .setHobbies(fakerUtils.userHobbies)
+                .setSubjects(fakerUtils.userSubjects)
+                .setPicture(fakerUtils.userPicture)
+                .setAddress(fakerUtils.streetAddress)
+                .setState(fakerUtils.state)
+                .setCity(fakerUtils.city)
                 .clickSubmit();
 
         registrationForm.checkResult(
-                "Anton Test",
-                "anton@tests.test",
-                "Male",
-                "7917257895",
-                "14 February,1997",
-                "English",
-                "Sports",
-                "Screenshot_5.png",
-                "1234",
-                "Uttar Pradesh Agra"
+                fakerUtils.firstName + " " + fakerUtils.lastName,
+                fakerUtils.userEmail,
+                fakerUtils.genderUser,
+                fakerUtils.userNumber,
+                fakerUtils.userDay + " " + fakerUtils.userMounht + "," + fakerUtils.userYaer,
+                fakerUtils.userSubjects,
+                fakerUtils.userHobbies,
+                fakerUtils.userPicture,
+                fakerUtils.streetAddress,
+                fakerUtils.state + " " + fakerUtils.city
+
         );
     }
 
     @Test
     void testWithRequiredFieldsPositive(){
         registrationForm.openPage()
-                .setFirstName("Anton")
-                .setLastName("Test")
-                .setGenter("Male")
-                .setUserNumber("7917257895")
+                .setFirstName(fakerUtils.firstName)
+                .setLastName(fakerUtils.lastName)
+                .setGenter(fakerUtils.genderUser)
+                .setUserNumber(fakerUtils.userNumber)
                 .clickSubmit();
 
-        registrationForm.checkOneResult("Student Name", "Anton Test")
-        .checkOneResult("Gender", "Male")
-        .checkOneResult("Mobile", "7917257895");
+        registrationForm.checkOneResult("Student Name", fakerUtils.firstName + " " + fakerUtils.lastName)
+        .checkOneResult("Gender", fakerUtils.genderUser)
+        .checkOneResult("Mobile", fakerUtils.userNumber);
     }
 
     @Test
     void testNegativeRegistration(){
         registrationForm.openPage()
-            .setFirstName("Anton")
-                .setUserNumber("7917257895")
-                .setGenter("Male")
+            .setFirstName(fakerUtils.firstName)
+                .setUserNumber(fakerUtils.userEmail)
+                .setGenter(fakerUtils.genderUser)
                 .clickSubmit();
 
         registrationForm.checkResultNegative();

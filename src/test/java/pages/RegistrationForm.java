@@ -1,7 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.Selectors;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import com.codeborne.selenide.SelenideElement;
@@ -71,9 +69,9 @@ public class RegistrationForm {
         return this;
     }
 
-    public RegistrationForm setDateOFBirth (String yars, String mounth, String day){
+    public RegistrationForm setDateOFBirth (String userYaer, String userMounht, String userDay){
         dateOfBirhtDay.click();
-        calendarForm.setDate(yars, mounth, day);
+        calendarForm.setDate(userYaer, userMounht, userDay);
         return this;
     }
 
