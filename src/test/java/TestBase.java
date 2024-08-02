@@ -15,7 +15,9 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class TestBase {
     @BeforeAll
     static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
+        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("version", "100");
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
         Configuration.remote = System.getProperty("remoteUrl");
