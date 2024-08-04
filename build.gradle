@@ -1,5 +1,5 @@
 plugins {
-    id 'java-library'
+    id 'java'
     id "io.qameta.allure" version "2.11.2"
 }
 
@@ -7,7 +7,8 @@ repositories {
     mavenCentral()
 }
 
-def allureVersion = "2.27.0"
+def allureVersion = "2.27.0",
+    selenideVersion = "7.2.3"
 
 allure {
     report {
@@ -32,9 +33,11 @@ dependencies {
             'org.slf4j:slf4j-simple:2.0.7'
     )
 }
-
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+test {
+    useJUnitPlatform()
 }
 
 tasks.withType(Test) {
@@ -49,12 +52,9 @@ tasks.withType(Test) {
     }
 }
 
-tasks.withType(Test) {
-    systemProperties(System.getProperties())
+task registration_page(type: Test) {
     useJUnitPlatform {
-        if (System.getProperty("type") != null && !System.getProperty("type").isEmpty()) {
-            includeTags System.getProperty("type")
-        }
+        includeTags("simple")
     }
 }
 
