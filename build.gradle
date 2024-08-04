@@ -7,8 +7,7 @@ repositories {
     mavenCentral()
 }
 
-def allureVersion = "2.27.0",
-    selenideVersion = "7.2.3"
+def allureVersion = "2.27.0"
 
 allure {
     report {
@@ -38,9 +37,9 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-test {
-    useJUnitPlatform()
-}
+//test {
+//    useJUnitPlatform()
+//}
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
@@ -53,16 +52,16 @@ tasks.withType(Test) {
         }
     }
 }
-tasks.withType(Test) {
-    systemProperties(System.getProperties())
-    useJUnitPlatform()
-    testLogging {
-        lifecycle {
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat "short"
-        }
-    }
-}
+//tasks.withType(Test) {
+//    systemProperties(System.getProperties())
+//    useJUnitPlatform()
+//    testLogging {
+//        lifecycle {
+//            events "started", "skipped", "failed", "standard_error", "standard_out"
+//            exceptionFormat "short"
+//        }
+//    }
+//}
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
