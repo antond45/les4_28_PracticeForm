@@ -1,6 +1,9 @@
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import pages.RegistrationForm;
 import utils.FakerUtils;
 
@@ -13,8 +16,11 @@ public class NewPracticeFormTest extends TestBase {
 
     FakerUtils fakerUtils = new FakerUtils();
 
-    @Tag("regression")
-    @Test
+    @CsvSource(value = {
+            "Anton, 8917222225", "cats, 8917222226"
+    })
+    @Tag("smoke")
+    @ParameterizedTest(name = "Проерка регистрации для имени {0} и телефона {1}")
     void positiveAllRegistrationFormTest (String userName, String userNumber){
         step("Open form", () -> {
         registrationForm.openPage();});
@@ -53,8 +59,9 @@ public class NewPracticeFormTest extends TestBase {
         });
     }
 
-    @Tag("regression")
-    @Test
+    @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
+    @Tag("regres")
+    @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
     void testWithRequiredFieldsPositive(String name){
         step("Open form", () -> {
             registrationForm.openPage();});
