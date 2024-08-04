@@ -15,12 +15,11 @@ public class TestBase {
     @BeforeAll
     static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browserVersion", "122");
+        Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.pageLoadStrategy = "eager";
-        Configuration.holdBrowserOpen = false;
-        Configuration.browserSize = System.getProperty("browser_size","1920x1080");
-        Configuration.browser = System.getProperty("browser_type", "chrome");
-        Configuration.browserVersion = System.getProperty("browser_version","121.0");
-        Configuration.remote = System.getProperty("remote_url");
+
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -29,6 +28,7 @@ public class TestBase {
         ));
 
         Configuration.browserCapabilities = capabilities;
+
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
