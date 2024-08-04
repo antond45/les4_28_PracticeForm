@@ -66,11 +66,11 @@ tasks.withType(Test) {
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
-    useJUnitPlatform {
-        if (System.getProperty("type") != null && !System.getProperty("type").isEmpty()) {
-            includeTags (System.getProperty("type"))
-        }
-    }
+    useJUnitPlatform({
+        includeTags(System.getProperty("tag", "regression"))
+        includeTags(System.getProperty("tag", "smoke"))
+
+    })
 }
 
 sourceCompatibility = JavaVersion.VERSION_15
