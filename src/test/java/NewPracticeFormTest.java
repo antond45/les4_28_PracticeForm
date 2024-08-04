@@ -20,28 +20,26 @@ public class NewPracticeFormTest extends TestBase {
             "Anton, 8917222225", "cats, 8917222226"
     })
     @Tag("smoke")
-    @ParameterizedTest(name = "Проерка регистрации для имени {0} и телефона {1}")
+    @ParameterizedTest (name = "Проерка регистрации для имени {0} и телефона {1}")
     void positiveAllRegistrationFormTest (String userName, String userNumber){
         step("Open form", () -> {
-        registrationForm.openPage();});
-
+            registrationForm.openPage();});
         step("Fill form", () -> {
-                    registrationForm
-                            .setFirstName(userName)
-                            .setLastName(fakerUtils.lastName)
-                            .setUserEmail(fakerUtils.userEmail)
-                            .setGenter(fakerUtils.genderUser)
-                            .setUserNumber(userNumber)
-                            .setDateOFBirth(fakerUtils.userYaer, fakerUtils.userMounht, fakerUtils.userDay)
-                            .setHobbies(fakerUtils.userHobbies)
-                            .setSubjects(fakerUtils.userSubjects)
-                            .setPicture(fakerUtils.userPicture)
-                            .setAddress(fakerUtils.streetAddress)
-                            .setState(fakerUtils.state)
-                            .setCity(fakerUtils.city)
-                            .clickSubmit();
-                });
-
+            registrationForm
+                    .setFirstName(userName)
+                    .setLastName(fakerUtils.lastName)
+                    .setUserEmail(fakerUtils.userEmail)
+                    .setGenter(fakerUtils.genderUser)
+                    .setUserNumber(userNumber)
+                    .setDateOFBirth(fakerUtils.userYaer, fakerUtils.userMounht, fakerUtils.userDay)
+                    .setHobbies(fakerUtils.userHobbies)
+                    .setSubjects(fakerUtils.userSubjects)
+                    .setPicture(fakerUtils.userPicture)
+                    .setAddress(fakerUtils.streetAddress)
+                    .setState(fakerUtils.state)
+                    .setCity(fakerUtils.city)
+                    .clickSubmit();
+        });
         step("Check results", () -> {
             registrationForm.checkResult(
                     userName + " " + fakerUtils.lastName,
@@ -54,11 +52,9 @@ public class NewPracticeFormTest extends TestBase {
                     fakerUtils.userPicture,
                     fakerUtils.streetAddress,
                     fakerUtils.state + " " + fakerUtils.city
-
             );
         });
     }
-
     @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
     @Tag("regres")
     @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
@@ -66,13 +62,12 @@ public class NewPracticeFormTest extends TestBase {
         step("Open form", () -> {
             registrationForm.openPage();});
         step("Fill form", () -> {
-                    registrationForm.setFirstName(name)
-                            .setLastName(fakerUtils.lastName)
-                            .setGenter(fakerUtils.genderUser)
-                            .setUserNumber(fakerUtils.userNumber)
-                            .clickSubmit();
-                });
-
+            registrationForm.setFirstName(name)
+                    .setLastName(fakerUtils.lastName)
+                    .setGenter(fakerUtils.genderUser)
+                    .setUserNumber(fakerUtils.userNumber)
+                    .clickSubmit();
+        });
         step("Check results", () -> {
             registrationForm.checkOneResult("Student Name", name + " " + fakerUtils.lastName)
                     .checkOneResult("Gender", fakerUtils.genderUser)
@@ -80,21 +75,18 @@ public class NewPracticeFormTest extends TestBase {
         });
     }
 
-    @Tag("negative")
     @Test
     void testNegativeRegistration(){
         step("Open form", () -> {
             registrationForm.openPage();});
         step("Fill form", () -> {
-                    registrationForm.setFirstName(fakerUtils.firstName)
-                            .setUserNumber(fakerUtils.userEmail)
-                            .setGenter(fakerUtils.genderUser)
-                            .clickSubmit();
-                });
+            registrationForm.setFirstName(fakerUtils.firstName)
+                    .setUserNumber(fakerUtils.userEmail)
+                    .setGenter(fakerUtils.genderUser)
+                    .clickSubmit();
+        });
         step("Check results", () -> {
             registrationForm.checkResultNegative();
         });
     }
-
-
 }

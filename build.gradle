@@ -2,14 +2,11 @@ plugins {
     id 'java'
     id "io.qameta.allure" version "2.11.2"
 }
-
 repositories {
     mavenCentral()
 }
-
 def allureVersion = "2.27.0",
     selenideVersion = "7.2.3"
-
 allure {
     report {
         version.set(allureVersion)
@@ -23,7 +20,6 @@ allure {
         }
     }
 }
-
 dependencies {
     testImplementation (
             "com.codeborne:selenide:6.19.1",
@@ -39,11 +35,9 @@ tasks.withType(JavaCompile) {
 test {
     useJUnitPlatform()
 }
-
 tasks.withType(Test) {
     systemProperties(System.getProperties())
     useJUnitPlatform()
-
     testLogging {
         lifecycle {
             events "started", "skipped", "failed", "standard_error", "standard_out"
@@ -52,10 +46,8 @@ tasks.withType(Test) {
     }
 }
 
-task registration_page(type: Test) {
-    useJUnitPlatform {
-        includeTags("smoke")
-    }
+task smoke_tests(type: Test) {useJUnitPlatform {
+    includeTags("smoke")  }
 }
 
 sourceCompatibility = JavaVersion.VERSION_15
