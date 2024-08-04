@@ -9,13 +9,11 @@ import utils.FakerUtils;
 
 import static io.qameta.allure.Allure.step;
 
-@Tag("smoke")
 public class NewPracticeFormTest extends TestBase {
 
     RegistrationForm registrationForm = new RegistrationForm();
 
     FakerUtils fakerUtils = new FakerUtils();
-
     @CsvSource(value = {
             "Anton, 8917222225", "cats, 8917222226"
     })
@@ -24,6 +22,7 @@ public class NewPracticeFormTest extends TestBase {
     void positiveAllRegistrationFormTest (String userName, String userNumber){
         step("Open form", () -> {
             registrationForm.openPage();});
+
         step("Fill form", () -> {
             registrationForm
                     .setFirstName(userName)
@@ -40,6 +39,7 @@ public class NewPracticeFormTest extends TestBase {
                     .setCity(fakerUtils.city)
                     .clickSubmit();
         });
+
         step("Check results", () -> {
             registrationForm.checkResult(
                     userName + " " + fakerUtils.lastName,
@@ -52,9 +52,11 @@ public class NewPracticeFormTest extends TestBase {
                     fakerUtils.userPicture,
                     fakerUtils.streetAddress,
                     fakerUtils.state + " " + fakerUtils.city
+
             );
         });
     }
+
     @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
     @Tag("regres")
     @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
@@ -68,6 +70,7 @@ public class NewPracticeFormTest extends TestBase {
                     .setUserNumber(fakerUtils.userNumber)
                     .clickSubmit();
         });
+
         step("Check results", () -> {
             registrationForm.checkOneResult("Student Name", name + " " + fakerUtils.lastName)
                     .checkOneResult("Gender", fakerUtils.genderUser)
@@ -89,4 +92,6 @@ public class NewPracticeFormTest extends TestBase {
             registrationForm.checkResultNegative();
         });
     }
+
+
 }
