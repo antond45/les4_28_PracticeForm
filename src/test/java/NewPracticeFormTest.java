@@ -9,6 +9,7 @@ import utils.FakerUtils;
 
 import static io.qameta.allure.Allure.step;
 
+@Tag("regression")
 public class NewPracticeFormTest extends TestBase {
 
     RegistrationForm registrationForm = new RegistrationForm();
@@ -58,7 +59,7 @@ public class NewPracticeFormTest extends TestBase {
     }
 
     @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
-    @Tag("regres")
+    @Tag("smoke")
     @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
     void testWithRequiredFieldsPositive(String name){
         step("Open form", () -> {

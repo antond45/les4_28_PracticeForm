@@ -17,10 +17,10 @@ public class TestBase {
     static void beforeAll() {
         Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserVersion = System.getProperty("version", "100");
+        Configuration.browserVersion = System.getProperty("version", "122");
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = System.getProperty("remoteUrl");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
@@ -28,6 +28,7 @@ public class TestBase {
         ));
         Configuration.browserCapabilities = capabilities;
     }
+
 
     @BeforeEach
     void setUpBeforeEach() {
@@ -39,5 +40,6 @@ public class TestBase {
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
+        Selenide.closeWebDriver();
     }
 }
