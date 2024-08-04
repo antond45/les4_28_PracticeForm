@@ -9,16 +9,15 @@ import utils.FakerUtils;
 
 import static io.qameta.allure.Allure.step;
 
+@Tag("smoke")
 public class NewPracticeFormTest extends TestBase {
 
     RegistrationForm registrationForm = new RegistrationForm();
 
     FakerUtils fakerUtils = new FakerUtils();
-    @CsvSource(value = {
-            "Anton, 8917222225", "cats, 8917222226"
-    })
-    @Tag("smoke")
-    @ParameterizedTest (name = "Проерка регистрации для имени {0} и телефона {1}")
+
+    @Tag("regression")
+    @Test
     void positiveAllRegistrationFormTest (String userName, String userNumber){
         step("Open form", () -> {
         registrationForm.openPage();});
@@ -57,9 +56,8 @@ public class NewPracticeFormTest extends TestBase {
         });
     }
 
-    @Tag("regres")
-    @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
-    @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
+    @Tag("regression")
+    @Test
     void testWithRequiredFieldsPositive(String name){
         step("Open form", () -> {
             registrationForm.openPage();});
