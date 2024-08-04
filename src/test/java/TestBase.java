@@ -14,7 +14,7 @@ import java.util.Map;
 
 
 public class TestBase {
-    @BeforeAll
+    @BeforeEach
     static void beforeAll() {
         Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
         Configuration.browser = System.getProperty("browser", "chrome");
