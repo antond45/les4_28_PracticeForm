@@ -17,8 +17,8 @@ public class NewPracticeFormTest extends TestBase {
     @CsvSource(value = {
             "Anton, 8917222225", "cats, 8917222226"
     })
-    @Tag("smoke")
     @ParameterizedTest (name = "Проерка регистрации для имени {0} и телефона {1}")
+    @Tag("smoke")
     void positiveAllRegistrationFormTest (String userName, String userNumber){
         step("Open form", () -> {
         registrationForm.openPage();});
@@ -58,8 +58,8 @@ public class NewPracticeFormTest extends TestBase {
     }
 
     @ValueSource(strings = {"Anton", "Stepa", "Yura"} )
-    @Tag("regres")
     @ParameterizedTest (name = "Проверка минимального набора данных с именем {0}")
+    @Tag("regres")
     void testWithRequiredFieldsPositive(String name){
         step("Open form", () -> {
             registrationForm.openPage();});
