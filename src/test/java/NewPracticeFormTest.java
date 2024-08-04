@@ -78,6 +78,7 @@ public class NewPracticeFormTest extends TestBase {
         });
     }
 
+    @Tag("negative")
     @Test
     void testNegativeRegistration(){
         step("Open form", () -> {
